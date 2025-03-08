@@ -3,4 +3,4 @@ tensorflow
 pubchempy
 numpy
 pillow
-opencv
+opencv-python
