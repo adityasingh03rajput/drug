@@ -1,4 +1,25 @@
-import pygame
+import socket
+
+def connect_to_server():
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    code = input("Enter the game code provided by the host: ")
+    client.connect(('192.168.50.185', 5555))  # Replace with actual server IP
+    client.send(code.encode('utf-8'))
+    
+    # Verify the code
+    response = client.recv(1024).decode('utf-8')
+    if response == code:
+        print("Connected to the game!")
+        return client
+    else:
+        print("Invalid code. Connection failed.")
+        client.close()
+        return None
+
+def main():
+    client_socket = connect_to_server()
+    if client_socket:
+        import pygame
 import math
 import random
 
@@ -303,3 +324,8 @@ while running:
 
     pygame.display.flip()
 pygame.quit()
+
+pass
+
+if __name__ == "__main__":
+    main()
